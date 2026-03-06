@@ -1,0 +1,308 @@
+@import url(font.css);
+@import url(reset.css);
+
+:root {
+    --point-green: #95ea64;
+    --bg-beige: #F9F8F4;
+    --text-dark: #2C2C2C;
+    --white: #ffffff;
+    --gray-light: #bbb;
+}
+
+/* 📌 컨테이너: 1920 기준 양옆 200px 여백 확보 */
+.container {
+    max-width: 1520px; 
+    margin: 0 auto;    
+    padding: 0 20px;   
+    width: 100%;       
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background-color: var(--bg-beige);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    cursor: none; /* 기본 커서 숨김 */
+}
+
+/* 네비게이션 */
+/* 네비게이션 컨테이너: 3분할 정렬 */
+
+/* 1. 처음 상태: 기본 검은색 배경 (또는 원하는 색) */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+   background: #000;
+   
+    transition: all 0.4s ease; /* 부드러운 변화를 위해 추가 */
+}
+
+/* 2. 스크롤 내렸을 때 적용될 스타일: 약간 투명해짐 */
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.7); /* 0.7은 70% 불투명도. 더 투명하게 하려면 0.5 정도로 조절 */
+    backdrop-filter: blur(10px);    /* 뒤에 배경이 은은하게 비치도록 블러 효과 (추천!) */
+    padding: 5px 0;                /* 내릴 때 높이가 살짝 줄어들면 더 고급스러워요 */
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* 양 끝과 가운데로 분산 */
+    align-items: center;
+    height: 50px; /* 네비게이션 높이 고정 */
+    
+}
+
+/* 가운데 메뉴 위치 고정 */
+.nav-links {
+    display: flex;
+    position: absolute; /* 절대 위치로 가운데 고정 */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links li {
+    
+    
+}
+
+.nav-links li a {
+    color: #fff;
+
+    display: block;
+    padding: 0 30px; /* 양옆 여백으로 조절 */
+}
+.nav-links li a:hover {color:#95ea64 ;}
+
+/* 오른쪽 인증 버튼들 */
+.nav-auth {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-auth a {
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+/* 드롭다운 부모 설정 */
+.nav-links li.dropdown {
+    position: relative;
+}
+
+/* 서브 메뉴 기본 상태 (숨김) */
+.sub-menu {
+    position: absolute;
+    top: 100%; /* 메인 메뉴 바로 아래 */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); /* 살짝 아래에서 시작 */
+    background: rgba(0, 0, 0, 0.8); /* 어두운 반투명 배경 */
+    backdrop-filter: blur(10px); /* 배경 흐림 효과 */
+    min-width: 160px;
+    padding-top: 15px;
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    list-style: none;
+}
+
+/* 마우스 올리면 나타남 */
+.dropdown:hover .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* 제자리로 올라오며 등장 */
+}
+
+/* 서브 메뉴 리스트 스타일 */
+.sub-menu li {
+    margin: 0 !important; /* 기존 여백 제거 */
+    text-align: center;
+}
+
+.sub-menu li a {
+    display: block;
+    padding: 20px 20px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, ) !important;
+    transition: 0.2s;
+}
+
+/* 서브 메뉴 호버 효과 */
+.sub-menu li a:hover {
+    color: var(--point-green) !important;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* 회원가입 버튼 강조 (선택 사항) */
+.btn-signup {
+    border: 1px solid var(--white);
+    padding: 6px 15px;
+    border-radius: 20px;
+}
+
+.btn-signup:hover {
+    background: var(--white);
+    color: #000 !important;
+}
+
+/* 로고 스타일 유지 */
+.logo { 
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    color: var(--white); 
+    white-space: nowrap; 
+}
+/* 🍃 히어로 섹션 (나뭇잎 효과 범위 제한) */
+.hero {
+    height: 100vh;
+    background: url(../images/hero.jpg);
+    background-size: cover; 
+    background-position: center;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    color: var(--white); 
+    text-align: center;
+    position: relative; /* 나뭇잎 배치의 기준 */
+    overflow: hidden;   /* 나뭇잎이 섹션 밖으로 나가지 않게 함 */
+    transition: background-image 0.8s ease-in-out;
+}
+
+.hero-content {margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);}
+.hero h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; position: relative; z-index: 10; }
+.hero .big {margin-top: 10px; font-size: 20px; letter-spacing: 1px;}
+.hero .small {margin-top: 5px; font-size: 20px; letter-spacing: 1px;} 
+
+#leaf-container {
+    position: absolute; /* fixed에서 absolute로 변경: 히어로 섹션에 귀속됨 */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.leaf {
+    position: absolute;
+    top: -50px;
+    background: url('../images/leaf2.png') no-repeat center center;
+    background-size: contain;
+    aspect-ratio: 1 / 1; 
+    animation: falling-leaf 20s linear infinite;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+}
+
+/* 제품 섹션 */
+.products { padding: 200px 0; }
+.section-title {
+    font-size: 2.2rem; margin-bottom: 100px;
+    color: #000; font-weight: 500;
+    text-align: center;
+    font-family: 'GMarketSans';
+
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 80px 30px; 
+}
+.product-card { transition: 0.4s; }
+.product-card:hover { transform: translateY(-15px); }
+.img-box {
+    width: 100%; 
+    aspect-ratio: 1/1; 
+    overflow: hidden; 
+    margin-bottom: 20px;
+    background: #e0e0e0; 
+}
+.img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
+.product-price {margin-top: 8px;} 
+.price-box { display: flex; flex-direction: column; gap: 4px; }
+.origin-price { font-size: 0.85rem; color: var(--gray-light); text-decoration: line-through; }
+
+/* 배너 */
+.full-banner {
+    width: 100%; height: 600px;
+    background: url('../images/matcha_farm.jpg'); /* 경로 확인 필요 */
+    background-size: cover; 
+    background-attachment: fixed;
+}
+
+/* 스토리 섹션 */
+.story-section {padding: 200px 0; width: 100%; }
+.story-item {
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.story-item.item1 { background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../images/2bg.jpg'); }
+.story-item.item2 { background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../images/2bg2.jpg'); }
+.story-item.item3 { background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../images/2bg3.jpg'); }
+
+.story-text { color: #fff; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.story-item:nth-child(even) .story-text { margin-left: auto; text-align: right; }
+.story-text .sub-title { display: block; font-size: 1.2rem; margin-bottom: 50px;color: #BBDD89;  }
+.story-text .main-title { font-size: 2.5rem; font-weight: 300; margin-bottom: 30px; line-height: 1.3; color: #BBDD89;}
+.story-text .desc { font-size: 1.05rem; line-height: 1.8; opacity: 0.9; }
+
+/* 지점 소개 섹션 */
+.stores {
+    padding: 150px 0;
+    background: url('../images/bg1.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 100px 40px; }
+.store-img { width: 100%; aspect-ratio: 16 / 10; overflow: hidden; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+.store-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+.store-card:hover .store-img img { transform: scale(1.1); }
+.store-name { font-size: 1.1rem; font-weight: 500; color: #444; }
+
+/* 푸터 */
+.footer { background: #111; color: #999; padding: 100px 0; }
+.footer-container { display: flex; justify-content: space-between; align-items: flex-end; }
+.footer h3 { color: var(--white); margin-bottom: 15px; }
+
+/* 🖱️ 커스텀 커서 */
+.cursor {
+    width: 20px; height: 20px;
+    background: var(--point-green);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, background 0.3s ease;
+    z-index: 9999;
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+}
+.cursor.active { transform: translate(-50%, -50%) scale(2.5); background: #8FA67D; }
+
+/* 🍃 나뭇잎 애니메이션 정의 */
+@keyframes falling-leaf {
+    0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { top: 110%; transform: translateX(100px) rotate(720deg); opacity: 0; }
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .story-item { height: 60vh; background-attachment: scroll; }
+    .story-text .main-title { font-size: 1.8rem; }
+    .story-item:nth-child(even) .story-text { text-align: left; margin-left: 0; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .store-grid { grid-template-columns: 1fr; }
+}
